@@ -39,7 +39,7 @@ module.exports = class ProfilePage extends Backbone.View
         nav.val(@alpha2).trigger('liszt:updated')
         nav.bind('change',@_onNavChange)
         # Bind to past/future toggle
-        $('#profile-toggle input').bind 'change', @_onToggleMode
+        $('#profile-toggle').click(@_onToggleMode)
 
     ##################
     ## Private methods
@@ -179,9 +179,18 @@ module.exports = class ProfilePage extends Backbone.View
                 l2012: @_number_to_letter data.db_2012, x
         return out
 
-    _onToggleMode: =>
+    _onToggleMode: (e) =>
+        e.preventDefault()
+        if $('#profile-toggle').hasClass('inactive')
+            $('#profile-toggle').removeClass('inactive')
+            $('#profile-toggle').addClass('active')
+            $('#profile-toggle').html('Hide 2014 Calculator »')
+        else if $('#profile-toggle').hasClass('active')
+            $('#profile-toggle').removeClass('active')
+            $('#profile-toggle').addClass('inactive')
+            $('#profile-toggle').html('Show 2014 Calculator »')
         _viewPast = @viewPast
-        @viewPast = not $('#profile-toggle input').is(':checked')
+        @viewPast = not $('#profile-toggle').hasClass('active')
         animate = not (_viewPast==@viewPast)
         # Populate the DOM
         @_repaint()
