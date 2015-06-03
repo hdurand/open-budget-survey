@@ -12,7 +12,7 @@ module.exports = class ProfilePage extends Backbone.View
     ##################
     initialize: (@alpha2) =>
         @data = @lookup @alpha2
-        @db_2014 = $.extend {}, @data.db_2012
+        @db_2015 = $.extend {}, @data.db_2012
         reportGenerator.bind 'update', @_repaint
 
     lookup: (alpha2) ->
@@ -74,7 +74,7 @@ module.exports = class ProfilePage extends Backbone.View
             for x in $('.question-row')
                 x = $(x)
                 qnum = parseInt(x.attr('data-question-number'))
-                score = @db_2014[qnum]
+                score = @db_2015[qnum]
                 x.find('img[data-score="'+score+'"]').removeClass('inactive').addClass('active')
         @_repaint2014()
         # Add question number hover effect
@@ -184,11 +184,11 @@ module.exports = class ProfilePage extends Backbone.View
         if $('#profile-toggle').hasClass('inactive')
             $('#profile-toggle').removeClass('inactive')
             $('#profile-toggle').addClass('active')
-            $('#profile-toggle').html('Hide 2014 Calculator »')
+            $('#profile-toggle').html('Hide 2015 Calculator »')
         else if $('#profile-toggle').hasClass('active')
             $('#profile-toggle').removeClass('active')
             $('#profile-toggle').addClass('inactive')
-            $('#profile-toggle').html('Show 2014 Calculator »')
+            $('#profile-toggle').html('Show 2015 Calculator »')
         _viewPast = @viewPast
         @viewPast = not $('#profile-toggle').hasClass('active')
         animate = not (_viewPast==@viewPast)
@@ -209,14 +209,14 @@ module.exports = class ProfilePage extends Backbone.View
         score = el.attr('data-score')
         tr.find('img').removeClass('active').addClass('inactive')
         el.removeClass('inactive').addClass('active')
-        @db_2014[qnum] = parseInt(score)
+        @db_2015[qnum] = parseInt(score)
         @_repaint2014()
         @_animationHackScale $('.year-box.year-2014')
 
     _repaint2014: =>
-        score = reportGenerator.calculateScore @db_2014, reportGenerator.questionSet
+        score = reportGenerator.calculateScore @db_2015, reportGenerator.questionSet
         score = Math.round(score)
-        $('.scores .year-2014 .bottom').text 'Score: '+score
+        $('.scores .year-2015 .bottom').text 'Score: '+score
 
     _animationHackScale: (element, scale=1.3, time=340) =>
         """Hacky function to make an element pulse to a new scale and back again.
