@@ -77,7 +77,7 @@ module.exports = class ProfilePage extends Backbone.View
                 last: false
         $('#profile-mode').empty().append($(template_profile_badges badges))
         if @year == '2015'
-            $('#profile-toggle input').bind 'change', @_onToggleMode
+            $('#profile-toggle').click(@_onToggleMode)
         if @year == '2006' and @alpha2 == 'HU'
             @data =
                 alpha2: 'HU'
@@ -252,9 +252,19 @@ module.exports = class ProfilePage extends Backbone.View
             out.questions.push(obj)
         return out
 
-    _onToggleMode: =>
+    _onToggleMode: (e) =>
+        if e
+            e.preventDefault()
+            if $('#profile-toggle').hasClass('inactive')
+                $('#profile-toggle').removeClass('inactive')
+                $('#profile-toggle').addClass('active')
+                $('#profile-toggle').html('« Hide 2017 Calculator')
+            else if $('#profile-toggle').hasClass('active')
+                $('#profile-toggle').removeClass('active')
+                $('#profile-toggle').addClass('inactive')
+                $('#profile-toggle').html('Show 2017 Calculator »')
         _viewPast = @viewPast
-        @viewPast = not $('#profile-toggle input').is(':checked')
+        @viewPast = not $('#profile-toggle').hasClass('active')
         animate = not (_viewPast==@viewPast)
         # Populate the DOM
         @_repaint()
