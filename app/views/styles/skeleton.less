@@ -90,35 +90,46 @@ ul#utility-nav {
   }
 }
 #main-nav {
-  display: none;
-  .container {
-    margin-top: 10px;
+  &.toggled {
+    display: block;
+    .menu-mobile-menu-container {
+      left: 0;
+    }
   }
-  ul {
+  .menu-mobile-menu-container {
+    left: -100%;
+    bottom: 0;
+    top: 0;
+    background: #f2f2f2;
+    position: fixed;
+    transition: all 0.5s ease;
+    width: 80%;
+    z-index: 10;
+  }
+  ul#menu-mobile-menu {
+    display: block;
     list-style-type: none;
-    margin: 0;
+    margin: 10px 0;
+    padding-left: 0;
     li {
-      display: table;
-      float: left;
+      float: none;
+      text-align: left;
       position: relative;
-      height: 52px;
-      width: 10.9%;
-      border-left: 2px solid #e3e9f1;
-      &:first-child {
-        border: none;
-      }
+      width: 100%;
+      border-bottom: 1px solid #e3e9f1;
+      clear: both;
       a {
-        display: table-cell;
-        vertical-align: middle;
-        height: 42px;
-        padding: 5px 10px;
-        margin: 0;
-        font-size: 15px;
+        background: #f2f2f2;
+        display: block;
+        padding: 10px 20px;
+        font-size: 16px;
         color: #0087d1;
         font-weight: bold;
         font-family: "Roboto Condensed", Arial, sans-serif;
         text-transform: uppercase;
+        text-decoration: none;
         text-align: center;
+        text-align: left;
         &:hover {
           color:#fff; 
           text-decoration: none;
