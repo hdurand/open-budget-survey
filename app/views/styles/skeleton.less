@@ -20,7 +20,7 @@ body {
     padding: 5px 0 20px 10px;
   }
   .container {
-    width: 1048px;
+    width: 100%;
   }
   .site-main {
     background: url(../images/bg_texture.jpg);
@@ -45,15 +45,26 @@ div#header {
   padding-top: 2px;
   padding-left: 8px;
   padding-bottom: 6px;
-  height: 94px;
+  text-align: center;
   h1#logo1 {
-    margin-top: 26px;
-    float: left;
+    margin: 0px 10px;
+    text-align: left;
+    width: 290px;
+    height: 55px;
   }
   h1#logo2 {
-    margin: 0;
-    margin-top: 14px;
-    float: right;
+    margin: 30px 10px 10px 10px;
+  }
+  .menu-toggle {
+    background: url(../images/hamburger.png);
+    display: block;
+    height: 46px;
+    width: 54px;
+    position: absolute;
+    right: 0;
+    top: -10px;
+    text-indent: -9999px;
+    cursor: pointer;
   }
 }
 ul#utility-nav { 
@@ -79,7 +90,7 @@ ul#utility-nav {
   }
 }
 #main-nav {
-  height: 72px;
+  display: none;
   .container {
     margin-top: 10px;
   }
