@@ -119,7 +119,7 @@ module.exports = class ProjectPage extends Backbone.View
                 obj.score = 'N/A'
             el = $(template_rankings_row obj).appendTo(target)
         $('.percentbar').tooltip
-            placement: 'right'
+            placement: 'bottom'
             delay: 50
             animation: true
 
