@@ -1,8 +1,3 @@
-{{#if last}}
-<div>
-  <a id="profile-toggle" class="inactive" href="#">Show 2017 Calculator »</a>
-</div>
-{{/if}}
 <div class="scores">
   {{#each years}}
     <div class="year-box year-{{this}} badge">
@@ -16,9 +11,13 @@
   {{/if}}
   <div class="clearfix"></div>
 </div>
-<br/>
 {{#if last}}
 <div>
   <p class="explanation future">Click on the letters below to calculate the possible outcome of the 2017 survey.<br/>Changing the value of a question automatically updates the score.</p>
+</div>
+{{/if}}
+{{#if last}}
+<div>
+  <a id="profile-toggle" class="inactive" href="#">Show 2017 Calculator »</a>
 </div>
 {{/if}}

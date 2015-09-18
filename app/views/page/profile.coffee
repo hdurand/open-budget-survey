@@ -57,6 +57,7 @@ module.exports = class ProfilePage extends Backbone.View
             $('button[data-year="2015"]').click()
         else
             $('button[data-year="2006"]').click()
+        $('.question-box').click @_onClickQbox
 
     ##################
     ## Private methods
@@ -92,6 +93,7 @@ module.exports = class ProfilePage extends Backbone.View
         @_onToggleMode()
 
     _repaint: (dataset=reportGenerator.dataset, questionSet=reportGenerator.questionSet) =>
+        $('.question-box').click()
         if @year != '2015'
             percentageData = 
                 percentages: [
@@ -109,7 +111,7 @@ module.exports = class ProfilePage extends Backbone.View
         $('.percentages').empty().append($(template_profile_percentages percentageData))
         # Add tooltips to nav bars
         $('.percentbar').tooltip
-            placement: 'right'
+            placement: 'bottom'
             delay: 50
             animation: true
         detailsData = 
@@ -131,8 +133,7 @@ module.exports = class ProfilePage extends Backbone.View
                 x.find('img[data-score="'+score+'"]').removeClass('inactive').addClass('active')
         @_repaint2014()
         # Add question number hover effect
-        @$el.find('tr.question-row').mouseover @_onHoverQuestion
-        @$el.find('tr.question-row:first').mouseover()
+        @$el.find('tr.question-row').click @_onHoverQuestion
         # Fill out scores
         render_score = (year,score)->
             if not (score is undefined)
@@ -160,26 +161,36 @@ module.exports = class ProfilePage extends Backbone.View
 
     _onHoverQuestion: (e) ->
         target = $(e.delegateTarget)
-        if $('#datasheet-toggles button.active').attr('data-year') == '2015'
-            datasetQuestion = _EXPLORER_DATASET.question
+        if target.hasClass 'active'
+            target.removeClass 'active'
+            $('.question-box').css('display', 'none')
         else
-            datasetQuestion = _EXPLORER_DATASET.question_old
-        number = target.attr('data-question-number')
-        t3q = {t3pbs: '134', t3ebp: '135', t3eb: '136', t3iyr: '137', t3myr: '138', t3yer: '139', t3ar: '140'}
-        if number of t3q
-            nb = t3q[number]
-            q = datasetQuestion[nb]
-        else
-            q = datasetQuestion[number]
-        qbox = $('.question-box')
-        qbox.html(template_question_text q)
-        top = target.position().top - 21
-        max_top = $('.details').height() - qbox.height() - 21
-        qbox.css
-            left : $('.details table').width()
-            top: Math.max(0, (Math.min top, max_top))
-        $('tr.question-row').removeClass 'hover'
-        target.addClass 'hover'
+            $('tr.question-row').removeClass 'active'
+            target.addClass 'active'
+            $('.question-box').css('display', 'block')
+            if $('#datasheet-toggles button.active').attr('data-year') == '2015'
+                datasetQuestion = _EXPLORER_DATASET.question
+            else
+                datasetQuestion = _EXPLORER_DATASET.question_old
+            number = target.attr('data-question-number')
+            t3q = {t3pbs: '134', t3ebp: '135', t3eb: '136', t3iyr: '137', t3myr: '138', t3yer: '139', t3ar: '140'}
+            if number of t3q
+                nb = t3q[number]
+                q = datasetQuestion[nb]
+            else
+                q = datasetQuestion[number]
+            qbox = $('.question-box')
+            qbox.html(template_question_text q)
+            top = target.position().top + target.height() + 1
+            qbox.css
+                left : -5
+                top: top
+
+    _onClickQbox: (e) ->
+        target = $(e.delegateTarget)
+        target.removeClass 'active'
+        $('.question-box').css('display', 'none')
+        $('tr.question-row').removeClass 'active'
 
     _onNavChange: (e) ->
         value = $(e.delegateTarget).val()
@@ -287,6 +298,9 @@ module.exports = class ProfilePage extends Backbone.View
         @db_2017[qnum] = parseInt(score)
         @_repaint2014()
         @_animationHackScale $('.year-box.year-2017')
+        if tr.hasClass 'active'
+            tr.click()
+
 
     _repaint2014: =>
         score = reportGenerator.calculateScore @db_2017, reportGenerator.questionSet

@@ -12,7 +12,8 @@
 
 #datasheet-toggles {
   .btn {
-    width: 200px;
+    width: 50%;
+    font-size: 14px;
   }
 }
 
@@ -25,14 +26,27 @@ div.country-nav-select-outer {
     font-family: "Roboto Condensed", Arial, sans-serif;
     text-transform: uppercase;
   }
+  .chzn-container a span, .chzn-single {
+    height: 40px;
+  }
+  .chzn-container a span {
+    padding-top: 10px;
+  }
+  .chzn-container a b {
+    background-position: 0 5px;
+  }
+  input, li {
+    height: 40px;
+  }
 }
 
 div#country-profile {
   margin: 0 10px;
   border-top: 1px solid #999;
   .main-website-link {
-    float: right;
-    margin-top: 10px;
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 11px;
   }
   h2 {
     padding-bottom: 4px;
@@ -46,9 +60,9 @@ div#country-profile {
       text-align: right;
     }
     .score {
-      width: 90px;
+      width: 80px;
       padding: 0 10px;
-      text-align: right;
+      text-align: center;
       font-weight: bold;
     }
     .bar {
@@ -61,10 +75,14 @@ div#country-profile {
   }
   .details {
     float: left;
+    width: 100%;
     table {
       margin-top: 0;
-      width: 340px;
+      width: 100%;
+      display: block;
       tr {
+        height: 49px;
+        width: 100%;
         th {
           text-align: center;
           border-bottom: 1px solid #ccc;
@@ -76,19 +94,21 @@ div#country-profile {
         * {
           border:none;
         }
-        td.number { 
-          width: 40px;
+        td.number {
           background: #eee;
-          padding-right: 10px;
           text-align: right;
           font-weight: bold;
+          vertical-align: middle;
         }
         td.letter {
+          vertical-align: middle;
           text-align: center;
           &.multi {
             background: lighten(#54A954,44%);
+            padding-top: 4px;
             img {
               cursor: pointer;
+              padding: 8px;
             }
             img.inactive {
               opacity: 0.3;
@@ -106,7 +126,7 @@ div#country-profile {
           width: 8px;
         }
       }
-      tr.hover {
+      tr.hover, tr.active {
         td.number {
           background: #ddd;
         }
@@ -121,12 +141,12 @@ div#country-profile {
     }
   }
   .question-box {
+    display: none;
     position: absolute;
-    left: 300px;
-    top: 0px;
     background: #eee;
-    width: 540px;
+    width: 100%;
     padding: 10px;
+    border: 1px solid #ccc;
     .question-text {
       background: #ddd;
       padding: 8px;
@@ -137,19 +157,18 @@ div#profile-mode {
   border: 1px solid #000;
   border-left: none;
   border-right: none;
-  margin: 15px 0;
+  margin: 10px 0 15px 0;
   padding: 10px 0;
   position: relative;
   .explanation {
-    position: absolute;
-    left: 178px;
-    top: 12px;
     font-size: 13px;
     line-height: 18px;
-    margin: 5px 0 0 0;
+    margin: 15px 0 0 0;
   }
   #profile-toggle {
-    float: right;
+    display: inline-block;
+    padding-top: 15px;
+    padding-bottom: 11px;
   }
   .scores {
     font-weight: normal;
@@ -164,6 +183,7 @@ div#profile-mode {
       border-radius: 4px;
       text-align: center;
       margin-right: 6px;
+      margin-top: 6px;
       span {
         display: block;
       }
