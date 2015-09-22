@@ -20,6 +20,7 @@ module.exports = class ProjectPage extends Backbone.View
         $('#year-toggles button').click @_yearToggle
         $('button[data-year="2015"]').click()
         $('.av-region-toggler').click(@clickregion)
+        $('#availability .av-table-header').click(@_clickHeader)
 
 
     ##################
@@ -91,3 +92,14 @@ module.exports = class ProjectPage extends Backbone.View
                 target.addClass 'active'
         @_repaint()
         return false
+
+    _clickHeader: (e) =>
+        e.preventDefault()
+        target = $(e.delegateTarget)
+        help = $('#availability .doc-help')
+        if target.hasClass 'active'
+            target.removeClass 'active'
+            help.css('display', 'none')
+        else
+            target.addClass 'active'
+            help.css('display', 'table-cell')
