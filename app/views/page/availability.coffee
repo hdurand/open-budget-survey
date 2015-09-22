@@ -20,7 +20,7 @@ module.exports = class ProjectPage extends Backbone.View
         $('#year-toggles button').click @_yearToggle
         $('button[data-year="2015"]').click()
         $('.av-region-toggler').click(@clickregion)
-        $('#availability .av-table-header').click(@_clickHeader)
+        $(window).scroll(@_showHeader)
 
 
     ##################
@@ -93,13 +93,13 @@ module.exports = class ProjectPage extends Backbone.View
         @_repaint()
         return false
 
-    _clickHeader: (e) =>
-        e.preventDefault()
-        target = $(e.delegateTarget)
-        help = $('#availability .doc-help')
-        if target.hasClass 'active'
-            target.removeClass 'active'
-            help.css('display', 'none')
-        else
-            target.addClass 'active'
-            help.css('display', 'table-cell')
+    _showHeader: =>
+        tableOffset = $("#availability").offset().top
+        offset = $(window).scrollTop()
+        fixedHeader = $("#header-fixed")
+        if (offset >= tableOffset) and (fixedHeader.is(":hidden"))
+            fixedHeader.show()
+            twidth = $("#availability").width()
+            fixedHeader.css('width', twidth)
+        else if (offset < tableOffset)
+            fixedHeader.hide()

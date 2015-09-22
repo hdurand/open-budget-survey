@@ -69,6 +69,12 @@
 	}
 }
 
+.doc-help{
+  font-size: 12px;
+  line-height: 20px;
+  margin-top: 15px;
+} 
+
 #availability {
     width: 100%;
     td {
@@ -103,15 +109,7 @@
                 width:47px;
             }
         }
-        .doc-help {
-          display: none;
-          text-align: left;
-          line-height: 20px;
-        }
-        .av-table-header {
-          cursor: pointer;
-        }
-    }
+      }
     tbody {
         td {
             text-align: center;
@@ -128,6 +126,39 @@
                 padding: 0 10px 0 0;
                 vertical-align: middle;
                 width:30px;
+            }
+        }
+    }
+}
+
+#header-fixed {
+    position: fixed;
+    top: 0px;
+    display: none;
+    background-color: white;
+    td {
+      height: 31px;
+    }
+    td.dot,
+    td.country {
+        width: 52px;
+    }
+    thead {
+      height:56px;
+        td {
+            font-size: 12px;
+            line-height: 12px;
+            text-align: center;
+            vertical-align: middle;
+            padding-top:10px;
+            padding-bottom:10px;
+            border-bottom: 1px solid #ccc;
+            &.flag {
+                width:31px;
+                padding: 0 10px;
+            }
+            &.dot {
+                width:48px;
             }
         }
     }
