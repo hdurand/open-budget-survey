@@ -1,7 +1,8 @@
 
 #custom-csv {
-  width: 400px;
+  width: 100%;
   height: 200px;
+  padding: 0;
   &:hover {
     cursor: pointer !important;
   }
@@ -14,23 +15,18 @@
   line-height: 13px;
   text-align: center;
   font-style: italic;
-  width: 400px;
-  margin-top:10px;
+  width: 100%;
+  margin-top:15px;
   margin-bottom: 2px;
   padding-bottom: 0;
 }
 .download-data1 {
-  width: 440px;
-  display: inline-block;
-  vertical-align: top;
-  padding-left: 10px;
+  width: 100%;
+  display: block;
 }
 .download-data2 {
-  width: 440px;
-  margin-left: 20px;
-  padding-left: 20px;
-  display: inline-block;
-  vertical-align: top;
+  width: 100%;
+  display: block;
 }
 
 div.dl-nav-select-outer {
@@ -42,21 +38,29 @@ div.dl-nav-select-outer {
     font-family: "Roboto Condensed", Arial, sans-serif;
     text-transform: uppercase;
   }
+  .chzn-container a span, .chzn-single {
+    height: 40px;
+  }
+  .chzn-container a span {
+    padding-top: 10px;
+  }
+  .chzn-container a b {
+    background-position: 0 5px;
+  }
+  input, li {
+    height: 40px;
+  }
 }
 
 #dl-mode {
   table {
-    border-top: 0;
-    .first-row {
-      th {
-        border-top: 1px solid #ddd;
-      }
-      th.blank {
-        border: none;
-      }
+    border-radius: 0;
+    td, th {
+      height: 23px;
+      vertical-align: middle;
     }
-    th.blank {
-      border: none;
+    td a {
+      padding: 11px 0;
     }
   }
   table.comp {
@@ -69,9 +73,14 @@ div.dl-nav-select-outer {
 }
 
 .dl-years {
+  padding: 10px 0;
   text-align: center;
+  margin: 0;
   .dl-years-info {
-    padding-right: 10px;
     vertical-align: bottom;
+  }
+  label.radio {
+    height: 30px;
+    padding-top: 10px;
   }
 }

@@ -133,9 +133,8 @@ module.exports = class DownloadPage extends Backbone.View
                 sf: false
                 cq: false
                 cr: false
-                excel : [_EXPLORER_DATASET.downloads_old[0], _EXPLORER_DATASET.downloads[0]]
-                csv : [_EXPLORER_DATASET.downloads_old[1], _EXPLORER_DATASET.downloads[1]]
-                json : [_EXPLORER_DATASET.downloads_old[2], _EXPLORER_DATASET.downloads[2]]
+                downloads_old: _EXPLORER_DATASET.downloads_old
+                downloads: _EXPLORER_DATASET.downloads
         else if value == 'sf'
             renderFiles =
                 fd: false
