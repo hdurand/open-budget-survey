@@ -79,7 +79,7 @@ module.exports = class ProjectPage extends Backbone.View
             datasetCountry = _EXPLORER_DATASET.country
         target = $('#rankings-table tbody').empty()
         if questionSet.length==0 
-            target.html '<p style="margin: 4px 15px; font-weight: bold; min-width: 400px;">(No questions selected)</p>'
+            target.html '<p style="margin: 4px 15px; font-weight: bold;">(No questions selected)</p>'
             return
         data = []
         selected_countries = []
