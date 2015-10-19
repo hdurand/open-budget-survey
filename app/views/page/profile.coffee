@@ -58,6 +58,7 @@ module.exports = class ProfilePage extends Backbone.View
         else
             $('button[data-year="2006"]').click()
         $('.question-box').click @_onClickQbox
+        $(window).off('scroll', @_showHeader)
         $(window).scroll(@_showScores)
 
     ##################

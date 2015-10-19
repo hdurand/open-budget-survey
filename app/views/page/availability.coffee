@@ -20,6 +20,7 @@ module.exports = class ProjectPage extends Backbone.View
         $('#year-toggles button').click @_yearToggle
         $('button[data-year="2015"]').click()
         $('.av-region-toggler').click(@clickregion)
+        $(window).off('scroll', @_showScores)
         $(window).scroll(@_showHeader)
 
 
