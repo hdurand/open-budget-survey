@@ -58,6 +58,7 @@ module.exports = class ProfilePage extends Backbone.View
         else
             $('button[data-year="2006"]').click()
         $('.question-box').click @_onClickQbox
+        $(window).scroll(@_showScores)
 
     ##################
     ## Private methods
@@ -329,3 +330,18 @@ module.exports = class ProfilePage extends Backbone.View
                 'transform':_scale
           } 
         )
+
+    _showScores: =>
+        if not @viewPast
+            scoresOffset = $("#scores-box").offset().top
+            offset = $(window).scrollTop()
+            fixedScores = $("#scores-fixed")
+            if (offset >= scoresOffset) and (fixedScores.is(":hidden"))
+                fixedScores.show()
+                swidth = $("#scores-box").width()
+                fixedScores.css('width', swidth)
+            else if (offset < scoresOffset)
+                fixedScores.hide()
+        else
+            if not ($("#scores-fixed").is(":hidden"))
+                $("#scores-fixed").hide()
