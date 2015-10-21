@@ -1,9 +1,9 @@
 {{#each countries}}
     <tr id="{{alpha2}}" data-country="{{country}}">
         <td class="country"><a href="#profile/{{alpha2}}">{{country}}</a></td>
-        <td class="flag"><img src="images/flags/{{alpha2}}.GIF"/></td>
+        <td class="flag"><a href="#profile/{{alpha2}}"><img src="images/flags/{{alpha2}}.GIF"/></a></td>
         <td class="score">{{score}}</td>
-        {{#each question}}
+        {{#each selectQuestion}}
         <td class="letter inactive" data-question-number="{{number}}">{{#if letter}}<img src="images/letter/{{this.letter}}.png"/>{{else}}-{{/if}}</td>
         {{/each}}
     </tr>

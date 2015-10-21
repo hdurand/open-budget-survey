@@ -6,6 +6,7 @@ util = require 'util'
 module.exports = class ProjectPage extends Backbone.View
 
     sortBy: 'name'
+    selectedQuestion: '114'
 
     ##################
     ## Public methods
@@ -21,12 +22,14 @@ module.exports = class ProjectPage extends Backbone.View
             @countriesIncluded.push(contained)
         @renderData =
             questions: @_getQuestions()
-            countries: @_getCountry()
+            selectedQuestion: @_getQuestion(@selectedQuestion)
+            countries: @_getCountry(@selectedQuestion)
         @$el.html template_page @renderData
         target.html @$el
         $('th.col2').tooltip
             delay: 50
             animation: true
+            placement: 'left'
         @_reflow()
         $('.sortbyname').click @_sortByColumn
         $('.sortbyname[data-sort="'+@sortBy+'"]').click()
@@ -35,9 +38,13 @@ module.exports = class ProjectPage extends Backbone.View
         nav.val(@alpha2).trigger('liszt:updated')
         nav.bind('change',@_onNavChange)
         navReg = @$el.find('#select-region')
-        navReg.chosen()
+        navReg.chosen({disable_search_threshold: 20})
         navReg.val('').trigger('liszt:updated')
         navReg.bind('change',@_onRegChange)
+        navQ = @$el.find('#select-question')
+        navQ.chosen({disable_search_threshold: 20})
+        navQ.val('').trigger('liszt:updated')
+        navQ.bind('change',@_onQuestionChange)
 
     ##################
     ## Private methods
@@ -51,6 +58,10 @@ module.exports = class ProjectPage extends Backbone.View
             questions.push(data)
         return questions
 
+    _getQuestion: (number) =>
+        data = _EXPLORER_DATASET.question[number]
+        return [data]
+
     _calculateScore: (country) =>
         acc = 0
         count = 0
@@ -61,7 +72,7 @@ module.exports = class ProjectPage extends Backbone.View
         if (count==0) then return -1
         return Math.round(acc/count)
 
-    _getCountry: =>
+    _getCountry: (number) =>
         countries = []
         allQ = [114]
         allQ.push(n) for n in [119...134]
@@ -71,6 +82,7 @@ module.exports = class ProjectPage extends Backbone.View
                     alpha2: ctry.alpha2
                     country: ctry.name
                     question: []
+                    selectQuestion: []
                 obj = {}
                 for q in allQ
                     obj =
@@ -79,6 +91,8 @@ module.exports = class ProjectPage extends Backbone.View
                         letter: ctry[q+'']['letter']
                         comments: ctry[q+'']['comments']
                     data.question.push(obj)
+                    if obj.number == number
+                        data.selectQuestion.push(obj)
                 data.score = @_calculateScore(data)
                 countries.push(data)
         return countries
@@ -136,7 +150,7 @@ module.exports = class ProjectPage extends Backbone.View
 
     _completeAnswer: (country, number) =>
         q = _EXPLORER_DATASET.question[number]
-        countries = @_getCountry()
+        countries = @_getCountry(number)
         for obj in countries
             if obj['alpha2'] == country
                 for elt in obj['question']
@@ -159,7 +173,6 @@ module.exports = class ProjectPage extends Backbone.View
                 target.addClass 'active'
                 q = @_completeAnswer(country, number)
                 cbox.append(template_comments q)
-                @_boxHeight(country)
         else
             $('.comments-box').empty()
             @$el.find('td.letter.active').removeClass('active').addClass('inactive')
@@ -173,7 +186,6 @@ module.exports = class ProjectPage extends Backbone.View
             q = @_completeAnswer(country, number)
             cbox = $('.comments-box.' + country)
             cbox.append(template_comments q)
-            @_boxHeight(country)
 
     _onNavChange: (e) =>
         value = $(e.delegateTarget).val()
@@ -195,11 +207,13 @@ module.exports = class ProjectPage extends Backbone.View
             @countriesIncluded.push(contained)
         @renderData =
             questions: @_getQuestions()
-            countries: @_getCountry()
+            selectedQuestion: @_getQuestion(@selectedQuestion)
+            countries: @_getCountry(@selectedQuestion)
         @$el.html template_page @renderData
         $('th.col2').tooltip
             delay: 50
             animation: true
+            placement: 'left'
         @_reflow()
         $('.sortbyname').click @_sortByColumn
         $('.sortbyname[data-sort="'+@sortBy+'"]').click()
@@ -208,6 +222,40 @@ module.exports = class ProjectPage extends Backbone.View
         nav.val(@alpha2).trigger('liszt:updated')
         nav.bind('change',@_onNavChange)
         navReg = @$el.find('#select-region')
-        navReg.chosen()
+        navReg.chosen({disable_search_threshold: 20})
         navReg.val('region-' + @region).trigger('liszt:updated')
         navReg.bind('change',@_onRegChange)
+        navQ = @$el.find('#select-question')
+        navQ.chosen({disable_search_threshold: 20})
+        navQ.val(@selectedQuestion).trigger('liszt:updated')
+        navQ.bind('change',@_onQuestionChange)
+
+    _onQuestionChange: (e) =>
+        value = $(e.delegateTarget).val()
+        @selectedQuestion = value
+        @renderData =
+            questions: @_getQuestions()
+            selectedQuestion: @_getQuestion(value)
+            countries: @_getCountry(value)
+        @$el.html template_page @renderData
+        $('th.col2').tooltip
+            delay: 50
+            animation: true
+            placement: 'left'
+        @_reflow()
+        $('.sortbyname').click @_sortByColumn
+        if @sortBy != 'name' and @sortBy != 'score'
+            @sortBy = @selectedQuestion
+        $('.sortbyname[data-sort="'+@sortBy+'"]').click()
+        nav = @$el.find('#select-country')
+        nav.chosen()
+        nav.val(@alpha2).trigger('liszt:updated')
+        nav.bind('change',@_onNavChange)
+        navReg = @$el.find('#select-region')
+        navReg.chosen({disable_search_threshold: 20})
+        navReg.val('region-' + @region).trigger('liszt:updated')
+        navReg.bind('change',@_onRegChange)
+        navQ = @$el.find('#select-question')
+        navQ.chosen({disable_search_threshold: 20})
+        navQ.val(@selectedQuestion).trigger('liszt:updated')
+        navQ.bind('change',@_onQuestionChange)

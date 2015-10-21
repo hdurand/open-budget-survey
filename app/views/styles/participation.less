@@ -2,7 +2,7 @@
     h2 {
         font-family: "Roboto Condensed", Arial, sans-serif;
         text-transform: uppercase;
-        font-size: 36px;
+        font-size: 32px;
         margin: 0;
         padding: 5px 0 20px 10px;
     }
@@ -13,20 +13,21 @@
             margin-right: 10px;
         }
         .participation-links {
-            display: inline-block;
-            float: right;
-            text-align: right;
+            padding: 5px 0;
+            a {
+                padding: 10px 0;
+            }
         }
     }
 }
 
 #participation-table {
     width: 100%;
+    table-layout: fixed;
     .country {
         text-align: right;
         /* IE hack: put this inside a span or other line-level element..*/
         a {
-          white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           color: #000;
@@ -40,11 +41,13 @@
         text-align: center;
     }
     th {
+        height: 40px;
         text-align: center;
-        padding: 4px 0 4px 0;
+        padding: 0;
         background: #eee;
         border: 1px solid #ccc;
         .sortbyname {
+            padding: 10px 0;
             display: block;
             color: #000;
             .caret { margin-top: 9px; opacity: 1.0; }
@@ -62,9 +65,7 @@
     td.letter {
         text-align: center;
         padding: 4px 5px 4px 5px;
-        img {
-            cursor: pointer;
-        }
+        cursor: pointer;
         &.inactive {
             opacity: 0.3;
             &:hover {
@@ -87,9 +88,17 @@
             }
         }
     }
-    td.country,
+    td.country {
+        height: 37px;
+        a {
+            padding: 10px 0;
+        }
+    }
     td.flag {
-        height: 34px;
+        height: 37px;
+        a {
+            padding: 10px 20px;
+        }
     }
     td.score {
         text-align: center;
@@ -107,8 +116,7 @@
             border-top: 6px solid #eee;
             .question,
             .comments {
-                display: inline-block;
-                width: 486px;
+                display: block;
                 vertical-align: top;
                 background: #eee;
                 padding: 5px 10px 10px 10px;
