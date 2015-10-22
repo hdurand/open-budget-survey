@@ -24,6 +24,8 @@ module.exports = class ProjectPage extends Backbone.View
 
     renderPage: (target) =>
         $(window).scrollTop(0)
+        $(window).off('scroll', @_showScores)
+        $(window).off('scroll', @_showHeader)
         @$el.html template_page()
         target.html @$el
         $('.sortbyname').click @_sortByNameToggle

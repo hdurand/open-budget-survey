@@ -16,6 +16,8 @@ module.exports = class ProjectPage extends Backbone.View
 
     renderPage: (target) =>
         $(window).scrollTop(0)
+        $(window).off('scroll', @_showScores)
+        $(window).off('scroll', @_showHeader)
         @region = '0'
         @countriesIncluded = []
         for contained in _EXPLORER_DATASET.regions[parseInt(@region)].contains
