@@ -23,7 +23,7 @@
 </div>
 <div id="country-profile">
 {{#if empty}}
-  <h3>Select a country...</h3>
+  <p class="select-help">Select a country from the menu above.</p>
 {{else}}
   {{#if main_website_url}}
     <a class="main-website-link" href="{{main_website_url}}">View {{#with data}}{{name}}{{/with}} on IBP Site &raquo;</a>
